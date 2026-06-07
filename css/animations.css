@@ -1,0 +1,182 @@
+/* ============================================================
+   SUNRISE AFH — Animations & Scroll Effects
+   ============================================================ */
+
+/* ─── Scroll Reveal ─────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s !important; }
+.delay-2 { transition-delay: 0.2s !important; }
+.delay-3 { transition-delay: 0.3s !important; }
+.delay-4 { transition-delay: 0.4s !important; }
+.delay-5 { transition-delay: 0.5s !important; }
+.delay-6 { transition-delay: 0.6s !important; }
+
+/* ─── Hero Entrance ──────────────────────────────────────────── */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroBadge {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero__badge   { animation: heroBadge 0.6s ease forwards; animation-delay: 0.2s; opacity: 0; }
+.hero h1       { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.4s; opacity: 0; }
+.hero__sub     { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.6s; opacity: 0; }
+.hero .btn-group { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.8s; opacity: 0; }
+.hero__stats   { animation: heroFadeUp 0.8s ease forwards; animation-delay: 1.0s; opacity: 0; }
+
+/* ─── Pulse Animation (for CTA badges) ──────────────────────── */
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244,180,0,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(244,180,0,0); }
+}
+
+.pulse-gold { animation: pulse 2.5s ease infinite; }
+
+/* ─── Shimmer (skeleton loading fallback) ───────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f2f5 25%, #e2e8f0 50%, #f0f2f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ─── Float effect ──────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.float-animate { animation: float 4s ease-in-out infinite; }
+
+/* ─── Navbar Brand entrance ──────────────────────────────────── */
+@keyframes logoEntrance {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.navbar__logo { animation: logoEntrance 0.5s ease forwards; }
+
+/* ─── Card hover glow effect ─────────────────────────────────── */
+.card--service::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(244,180,0,0.03) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card--service { position: relative; }
+
+.card--service:hover::after { opacity: 1; }
+
+/* ─── Number counter animation ───────────────────────────────── */
+.counter-num {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Image parallax ─────────────────────────────────────────── */
+.hero__bg { will-change: transform; }
+
+/* ─── Smooth underline on nav links ──────────────────────────── */
+.navbar__nav a {
+  position: relative;
+}
+
+.navbar__nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: var(--sunrise-gold);
+  transition: left 0.25s ease, right 0.25s ease;
+  border-radius: 2px;
+}
+
+.navbar__nav a:hover::after,
+.navbar__nav a.active::after {
+  left: 8px;
+  right: 8px;
+}
+
+/* ─── Gradient text ──────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--sunrise-gold) 0%, var(--sunrise-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale,
+  .hero__badge, .hero h1, .hero__sub, .hero .btn-group, .hero__stats {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

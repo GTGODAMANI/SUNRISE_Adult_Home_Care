@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Care Services | Sunrise Adult Family Home LLC | Marysville, WA</title>
+  <meta name="description" content="Comprehensive adult family home care services in Marysville WA including personal care, medication management, memory care, respite care and 24/7 supervision." />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="adult family home services, personal care, medication management, memory care, respite care, 24/7 supervision, Marysville WA senior care" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Care Services | Sunrise Adult Family Home LLC | Marysville, WA" />
+  <meta property="og:description" content="Comprehensive adult family home care services in Marysville WA including personal care, medication management, memory care, respite care and 24/7 supervision." />
+  <meta property="og:url" content="https://sunriseafh.com/services.html" />
+  <meta property="og:image" content="https://sunriseafh.com/images/caregiver-resident.png" />
+  <meta property="og:site_name" content="Sunrise Adult Family Home LLC" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Care Services | Sunrise Adult Family Home LLC" />
+  <meta name="twitter:description" content="Comprehensive adult family home care services in Marysville WA." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://sunriseafh.com/services.html" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Sunrise Adult Family Home LLC",
+    "url": "https://sunriseafh.com",
+    "telephone": "+12065572149",
+    "email": "frity1995@yahoo.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "7902 58th PL NE",
+      "addressLocality": "Marysville",
+      "addressRegion": "WA",
+      "postalCode": "98270",
+      "addressCountry": "US"
+    },
+    "description": "Comprehensive adult family home care services in Marysville WA including personal care, medication management, memory care, respite care and 24/7 supervision.",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Care Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Personal Care Assistance" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Medication Management" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Daily Living Support" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Memory Care Support" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Respite Care" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "24-Hour Supervision" } }
+      ]
+    }
+  }
+  </script>
+
+  <style>
+    /* ── Services page local styles ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2d6aa0 60%, #1a3d60 100%);
+      color: var(--white);
+      padding: var(--space-24) 0 var(--space-20);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/caregiver-resident.png') center/cover no-repeat;
+      opacity: 0.08;
+    }
+    .page-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+    }
+    .page-hero h1 span { color: var(--sunrise-gold); }
+    .page-hero p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* Services intro */
+    .services-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    .services-intro-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-6) 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2) var(--space-4);
+    }
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.97rem;
+    }
+    .feature-list li span.chk {
+      color: var(--sunrise-gold);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* Detailed services */
+    .service-article {
+      background: var(--white);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10);
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-8);
+      border-left: 4px solid var(--sunrise-gold);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .service-article:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-2px);
+    }
+    .service-article__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-10);
+      align-items: start;
+    }
+    .service-article__left {}
+    .service-icon-box {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--sunrise-gold) 0%, #e6a800 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin-bottom: var(--space-5);
+      box-shadow: 0 4px 16px rgba(244,180,0,0.35);
+    }
+    .service-article h3 {
+      font-family: var(--font-heading);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-3);
+    }
+    .service-article p {
+      color: var(--text-medium);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+    .service-include-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .service-include-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-2) 0;
+      font-size: 0.97rem;
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .service-include-list li:last-child { border-bottom: none; }
+    .service-include-list li .chk {
+      color: var(--sunrise-gold);
+      font-weight: 700;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .service-include-label {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: var(--space-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.8rem;
+    }
+
+    /* Care process */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+    .process-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8) var(--space-6);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .process-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+    .process-card::after {
+      content: '→';
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: var(--sunrise-gold);
+      font-weight: 700;
+      z-index: 2;
+    }
+    .process-card:last-child::after { display: none; }
+    .process-badge {
+      width: 40px;
+      height: 40px;
+      background: var(--sunrise-gold);
+      color: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin: 0 auto var(--space-3);
+      box-shadow: 0 4px 12px rgba(244,180,0,0.4);
+    }
+    .process-icon {
+      font-size: 2.4rem;
+      margin-bottom: var(--space-3);
+    }
+    .process-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-2);
+    }
+    .process-card p {
+      font-size: 0.93rem;
+      color: var(--text-medium);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Payment options */
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+      margin: var(--space-8) 0;
+    }
+    .payment-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-7) var(--space-5);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .payment-card:hover {
+      border-color: var(--sunrise-gold);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .payment-card__icon { font-size: 2.5rem; margin-bottom: var(--space-3); }
+    .payment-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-2);
+    }
+    .payment-card p {
+      font-size: 0.88rem;
+      color: var(--text-medium);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .payment-cta {
+      text-align: center;
+      margin-top: var(--space-6);
+    }
+    .payment-cta p {
+      color: var(--text-medium);
+      margin-bottom: var(--space-4);
+      font-size: 1.05rem;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #2d6aa0 100%);
+      color: var(--white);
+      padding: var(--space-20) 0;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+    }
+    .cta-banner p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: var(--space-8);
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-banner__actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-card::after { display: none; }
+      .payment-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .services-intro-grid { grid-template-columns: 1fr; }
+      .services-intro-img { height: 280px; }
+      .feature-list { grid-template-columns: 1fr; }
+      .service-article__inner { grid-template-columns: 1fr; }
+      .service-article { padding: var(--space-7) var(--space-5); }
+      .process-grid { grid-template-columns: 1fr; }
+      .payment-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: var(--space-16) 0 var(--space-12); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip Link + Navbar -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <nav class="navbar navbar--solid" id="navbar" data-transparent="false" role="navigation" aria-label="Main navigation">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo" aria-label="Sunrise Adult Family Home - Home">
+        <div class="logo-icon" aria-hidden="true">🌅</div>
+        <div class="logo-text">
+          <span class="logo-main">Sunrise AFH</span>
+          <span class="logo-sub">Adult Family Home LLC</span>
+        </div>
+      </a>
+      <nav class="navbar__nav" aria-label="Site navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="accommodation.html">Accommodation</a>
+        <a href="schedule-tour.html">Schedule a Tour</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="navbar__cta">
+        <a href="tel:+12065572149" class="navbar__phone" aria-label="Call us at (206) 557-2149">
+          📞 (206) 557-2149
+        </a>
+        <a href="schedule-tour.html" class="btn btn--primary btn--sm">Schedule Tour</a>
+      </div>
+      <button class="navbar__toggle" id="mobileToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="accommodation.html">Accommodation</a>
+    <a href="schedule-tour.html">Schedule a Tour</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+    <a href="tel:+12065572149" class="btn btn--primary">📞 Call (206) 557-2149</a>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════
+         PAGE HERO
+    ══════════════════════════════════════════ -->
+    <section class="page-hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="page-hero__content reveal">
+          <h1 id="hero-heading">Our Care <span>Services</span></h1>
+          <p>Comprehensive, personalized care services designed to support your loved one's health, independence, and dignity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SERVICES INTRO
+    ══════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="intro-heading">
+      <div class="container">
+        <div class="services-intro-grid">
+          <!-- Left: Text -->
+          <div class="reveal">
+            <span class="section-label">What We Provide</span>
+            <h2 id="intro-heading" class="section-title" style="text-align:left; margin-bottom: var(--space-5);">A Full Spectrum of Compassionate Care</h2>
+            <p class="lead" style="text-align:left; margin-bottom:var(--space-5);">
+              At Sunrise Adult Family Home, every service we provide is rooted in a person-centered philosophy. We work closely with each resident and their family to develop individualized care plans that honor personal preferences, medical needs, and lifestyle goals. Our goal is simple: to help your loved one thrive in a safe, warm, home-like environment.
+            </p>
+            <ul class="feature-list" role="list">
+              <li><span class="chk" aria-hidden="true">✓</span> Licensed &amp; Regulated</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Personalized Care Plans</li>
+              <li><span class="chk" aria-hidden="true">✓</span> 24/7 Caregiver Support</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Family Communication</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Skilled, Trained Staff</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Home-Like Environment</li>
+            </ul>
+          </div>
+          <!-- Right: Image -->
+          <div class="reveal reveal--delay-1">
+            <img
+              src="images/caregiver-resident.png"
+              alt="A caregiver sitting with a resident, sharing a warm moment at Sunrise Adult Family Home"
+              class="services-intro-img"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         DETAILED SERVICES
+    ══════════════════════════════════════════ -->
+    <section class="section section--gray" aria-labelledby="services-detail-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Our Services in Detail</span>
+          <h2 id="services-detail-heading" class="section-title">Everything Your Loved One Needs</h2>
+        </div>
+
+        <!-- ─── Personal Care ─── -->
+        <article id="personal-care" class="service-article reveal" aria-labelledby="personal-care-heading">
+          <div class="service-article__inner">
+            <div class="service-article__left">
+              <div class="service-icon-box" aria-hidden="true" role="img">🛁</div>
+              <h3 id="personal-care-heading">Personal Care Assistance</h3>
+              <p>
+                We provide dignified, respectful assistance with all aspects of personal care including bathing, showering, dressing, grooming, oral hygiene, and toileting. Our caregivers are trained to preserve dignity and promote independence wherever possible, ensuring every resident feels comfortable, respected, and cared for throughout their daily routine.
+              </p>
+            </div>
+            <div class="service-article__right">
+              <p class="service-include-label">What's Included</p>
+              <ul class="service-include-list" role="list">
+                <li><span class="chk" aria-hidden="true">✓</span> Bathing and showering assistance</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Dressing and undressing help</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Grooming and personal hygiene</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Toileting and incontinence care</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Mobility and transfer support</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Skin care and pressure prevention</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ─── Medication ─── -->
+        <article id="medication" class="service-article reveal reveal--delay-1" aria-labelledby="medication-heading">
+          <div class="service-article__inner">
+            <div class="service-article__left">
+              <div class="service-icon-box" aria-hidden="true" role="img">💊</div>
+              <h3 id="medication-heading">Medication Management</h3>
+              <p>
+                Safe and accurate medication management is a cornerstone of quality care. Our trained caregivers ensure all medications are administered correctly and on schedule, meticulously tracking dosages and maintaining clear documentation. We maintain open lines of communication with pharmacies and healthcare providers to ensure your loved one's medical needs are always met safely and effectively.
+              </p>
+            </div>
+            <div class="service-article__right">
+              <p class="service-include-label">What's Included</p>
+              <ul class="service-include-list" role="list">
+                <li><span class="chk" aria-hidden="true">✓</span> Medication reminders and prompting</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Medication administration</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Dosage tracking and documentation</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Coordination with healthcare providers</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Pharmacy communication</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Adverse reaction monitoring</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ─── Daily Living ─── -->
+        <article id="daily-living" class="service-article reveal" aria-labelledby="daily-living-heading">
+          <div class="service-article__inner">
+            <div class="service-article__left">
+              <div class="service-icon-box" aria-hidden="true" role="img">🏡</div>
+              <h3 id="daily-living-heading">Daily Living Support</h3>
+              <p>
+                We are committed to maintaining a clean, comfortable, and welcoming home environment for all our residents. From preparing nutritious, home-cooked meals tailored to dietary needs, to keeping the home tidy and managing laundry, our caregivers handle the everyday tasks that help create a joyful and comfortable daily life for every resident.
+              </p>
+            </div>
+            <div class="service-article__right">
+              <p class="service-include-label">What's Included</p>
+              <ul class="service-include-list" role="list">
+                <li><span class="chk" aria-hidden="true">✓</span> Home-cooked nutritious meals</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Housekeeping and tidying</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Laundry and linen care</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Grocery coordination</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Activity assistance</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Personal scheduling support</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ─── Memory Care ─── -->
+        <article id="memory-care" class="service-article reveal reveal--delay-1" aria-labelledby="memory-care-heading">
+          <div class="service-article__inner">
+            <div class="service-article__left">
+              <div class="service-icon-box" aria-hidden="true" role="img">🧠</div>
+              <h3 id="memory-care-heading">Memory Care Support</h3>
+              <p>
+                Our specialized memory care program is designed to support individuals living with Alzheimer's disease, dementia, and other memory-related conditions. We create a safe, familiar, and structured environment that reduces confusion and promotes calm. Our caregivers are trained in dementia-specific best practices, using compassionate techniques to support residents and provide invaluable guidance to families throughout the care journey.
+              </p>
+            </div>
+            <div class="service-article__right">
+              <p class="service-include-label">What's Included</p>
+              <ul class="service-include-list" role="list">
+                <li><span class="chk" aria-hidden="true">✓</span> Alzheimer's and dementia care</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Safe supervised environment</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Routine-based daily schedules</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Behavioral support</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Family guidance and education</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Sensory engagement activities</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ─── Respite Care ─── -->
+        <article id="respite" class="service-article reveal" aria-labelledby="respite-heading">
+          <div class="service-article__inner">
+            <div class="service-article__left">
+              <div class="service-icon-box" aria-hidden="true" role="img">🌿</div>
+              <h3 id="respite-heading">Respite Care</h3>
+              <p>
+                Caring for a loved one is deeply rewarding, but every family caregiver deserves a break. Our respite care program offers short-term residential stays that provide family caregivers with the rest they need while ensuring their loved one continues to receive the same high-quality, attentive care. Flexible scheduling options are available to accommodate your family's needs, including vacation and recovery support.
+              </p>
+            </div>
+            <div class="service-article__right">
+              <p class="service-include-label">What's Included</p>
+              <ul class="service-include-list" role="list">
+                <li><span class="chk" aria-hidden="true">✓</span> Short-term residential stays</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Full care services included</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Flexible scheduling</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Vacation respite coverage</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Medical recovery support</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Trial period option</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- ─── 24/7 Supervision ─── -->
+        <article id="supervision" class="service-article reveal reveal--delay-1" aria-labelledby="supervision-heading">
+          <div class="service-article__inner">
+            <div class="service-article__left">
+              <div class="service-icon-box" aria-hidden="true" role="img">🛡️</div>
+              <h3 id="supervision-heading">24-Hour Supervision</h3>
+              <p>
+                The safety and well-being of our residents is our highest priority. Our caregivers are present around the clock — day and night — to monitor each resident's health, respond swiftly to any emergency, and perform regular safety assessments. Comprehensive fall prevention protocols and proactive health monitoring ensure every resident remains safe, comfortable, and supported at all times.
+              </p>
+            </div>
+            <div class="service-article__right">
+              <p class="service-include-label">What's Included</p>
+              <ul class="service-include-list" role="list">
+                <li><span class="chk" aria-hidden="true">✓</span> Round-the-clock caregiver presence</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Nighttime monitoring</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Emergency response protocols</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Fall prevention measures</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Health monitoring</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Safety checks and assessments</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CARE PROCESS
+    ══════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="process-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">How We Work</span>
+          <h2 id="process-heading" class="section-title">Our Care Process</h2>
+          <p class="section-subtitle">Getting started is simple. We guide families every step of the way to ensure a smooth and confident transition.</p>
+        </div>
+        <div class="process-grid" role="list">
+
+          <div class="process-card reveal" role="listitem">
+            <div class="process-badge" aria-label="Step 1">1</div>
+            <div class="process-icon" aria-hidden="true">🤝</div>
+            <h4>Initial Consultation</h4>
+            <p>Contact us and we'll discuss your loved one's unique needs, preferences, and care requirements — no obligation.</p>
+          </div>
+
+          <div class="process-card reveal reveal--delay-1" role="listitem">
+            <div class="process-badge" aria-label="Step 2">2</div>
+            <div class="process-icon" aria-hidden="true">🏠</div>
+            <h4>Home Tour</h4>
+            <p>Visit our beautiful home, meet our warm and dedicated care team, and see first-hand why families trust Sunrise AFH.</p>
+          </div>
+
+          <div class="process-card reveal reveal--delay-2" role="listitem">
+            <div class="process-badge" aria-label="Step 3">3</div>
+            <div class="process-icon" aria-hidden="true">📋</div>
+            <h4>Care Assessment</h4>
+            <p>We conduct a thorough assessment and work with your family to create a fully personalized care plan.</p>
+          </div>
+
+          <div class="process-card reveal reveal--delay-3" role="listitem">
+            <div class="process-badge" aria-label="Step 4">4</div>
+            <div class="process-icon" aria-hidden="true">❤️</div>
+            <h4>Welcome Home</h4>
+            <p>We facilitate a smooth, supported transition so your loved one settles in comfortably and feels right at home.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         PAYMENT OPTIONS
+    ══════════════════════════════════════════ -->
+    <section class="section section--gray" aria-labelledby="payment-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="payment-heading" class="section-title">Payment Options</h2>
+          <p class="section-subtitle">We accept various payment options and work closely with families to find the best financial solution for your situation. Please don't hesitate to contact us to discuss your specific needs.</p>
+        </div>
+
+        <div class="payment-grid reveal">
+          <div class="payment-card">
+            <div class="payment-card__icon" aria-hidden="true">💳</div>
+            <h4>Private Pay</h4>
+            <p>Flexible private payment arrangements tailored to your family's financial situation.</p>
+          </div>
+          <div class="payment-card">
+            <div class="payment-card__icon" aria-hidden="true">🏛️</div>
+            <h4>Medicaid Waiver (DSHS)</h4>
+            <p>We work with Washington State DSHS Medicaid waiver programs for eligible residents.</p>
+          </div>
+          <div class="payment-card">
+            <div class="payment-card__icon" aria-hidden="true">📄</div>
+            <h4>Long-Term Care Insurance</h4>
+            <p>We accept most long-term care insurance policies. We can assist with the claims process.</p>
+          </div>
+          <div class="payment-card">
+            <div class="payment-card__icon" aria-hidden="true">🎖️</div>
+            <h4>Veterans Benefits</h4>
+            <p>Eligible veterans may qualify for VA benefits to help cover the cost of care. Ask us how.</p>
+          </div>
+        </div>
+
+        <div class="payment-cta reveal">
+          <p>Have questions about payment or eligibility? We're happy to walk you through your options.</p>
+          <div style="display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap;">
+            <a href="contact.html" class="btn btn--primary">Contact Us Today</a>
+            <a href="tel:+12065572149" class="btn btn--outline">📞 (206) 557-2149</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CTA BANNER
+    ══════════════════════════════════════════ -->
+    <section class="cta-banner" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="reveal">
+          <h2 id="cta-heading">Ready to Learn More?</h2>
+          <p>Schedule a tour of our home or call us today. Our team is here to answer every question and help your family take the next step with confidence.</p>
+          <div class="cta-banner__actions">
+            <a href="schedule-tour.html" class="btn btn--primary btn--lg">🏠 Schedule a Tour</a>
+            <a href="tel:+12065572149" class="btn btn--outline btn--lg" style="border-color:rgba(255,255,255,0.5);color:var(--white);">📞 Call (206) 557-2149</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo" style="margin-bottom:1rem;">
+            <div class="logo-icon">🌅</div>
+            <div class="logo-text">
+              <span class="logo-main">Sunrise AFH</span>
+              <span class="logo-sub">Adult Family Home LLC</span>
+            </div>
+          </a>
+          <p>Providing compassionate, personalized 24/7 residential care for seniors and adults in a warm, home-like environment in Marysville, Washington.</p>
+          <div class="footer__social">
+            <a href="#" class="social-link" aria-label="Facebook">📘</a>
+            <a href="#" class="social-link" aria-label="Instagram">📸</a>
+            <a href="mailto:frity1995@yahoo.com" class="social-link" aria-label="Email">✉️</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Our Services</a></li>
+            <li><a href="accommodation.html">Accommodation</a></li>
+            <li><a href="schedule-tour.html">Schedule a Tour</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="services.html#personal-care">Personal Care</a></li>
+            <li><a href="services.html#medication">Medication Management</a></li>
+            <li><a href="services.html#daily-living">Daily Living Support</a></li>
+            <li><a href="services.html#memory-care">Memory Care</a></li>
+            <li><a href="services.html#respite">Respite Care</a></li>
+            <li><a href="services.html#supervision">24/7 Supervision</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <div class="footer__contact-item">
+            <span class="icon">📞</span>
+            <div><a href="tel:+12065572149">(206) 557-2149</a></div>
+          </div>
+          <div class="footer__contact-item">
+            <span class="icon">✉️</span>
+            <div><a href="mailto:frity1995@yahoo.com">frity1995@yahoo.com</a></div>
+          </div>
+          <div class="footer__contact-item">
+            <span class="icon">📍</span>
+            <div>7902 58th PL NE<br>Marysville, WA 98270</div>
+          </div>
+          <div class="footer__contact-item">
+            <span class="icon">🕐</span>
+            <div>24/7 — Always Available</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© <span id="currentYear"></span> Sunrise Adult Family Home LLC. All rights reserved. Licensed Adult Family Home — Washington State.</p>
+        <div class="footer__bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" aria-label="Close image viewer">✕</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  <!-- Floating CTA -->
+  <div class="float-cta" role="complementary" aria-label="Quick contact">
+    <a href="tel:+12065572149" class="float-btn float-btn--call" aria-label="Call Sunrise AFH">📞 Call Now</a>
+    <a href="schedule-tour.html" class="float-btn float-btn--tour" aria-label="Schedule a tour">🏠 Schedule Tour</a>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>
