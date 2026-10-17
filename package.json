@@ -1,0 +1,19 @@
+{
+  "name": "sunrise-adult-family-home",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "studio": "cd studio && npx sanity dev",
+    "studio:deploy": "cd studio && npx sanity deploy"
+  },
+  "dependencies": {
+    "astro": "^5.4.0",
+    "@sanity/client": "^6.28.0",
+    "@sanity/image-url": "^1.1.0"
+  }
+}

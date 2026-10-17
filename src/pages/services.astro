@@ -1,0 +1,288 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings, getServices } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+const services = await getServices();
+---
+
+<Layout
+  title={`Our Care Services | ${settings.name} | Marysville, WA`}
+  description={`Explore comprehensive 24/7 senior care services at ${settings.name} in Marysville, WA: personal care, medication management, memory care, nutritious meals, and daily companionship.`}
+  canonicalPath="/services"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(4rem, 8vw, 7rem) var(--space-4) clamp(3rem, 6vw, 5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    .page-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(244,180,0,0.18);
+      border: 1px solid rgba(244,180,0,0.4);
+      color: var(--sunrise-gold);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .services-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .services-intro-grid { grid-template-columns: 1fr; }
+    }
+    .services-intro-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: var(--space-6) 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2) var(--space-4);
+    }
+    @media (max-width: 600px) {
+      .feature-list { grid-template-columns: 1fr; }
+    }
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.97rem;
+    }
+    .feature-list li span.chk {
+      color: var(--sunrise-gold);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .service-article {
+      background: var(--white);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10);
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-8);
+      border-left: 4px solid var(--sunrise-gold);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .service-article:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-2px);
+    }
+    .service-article__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-10);
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .service-article__inner { grid-template-columns: 1fr; }
+    }
+    .service-icon-box {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, var(--sunrise-gold) 0%, #e6a800 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin-bottom: var(--space-5);
+      box-shadow: 0 4px 16px rgba(244,180,0,0.35);
+    }
+    .service-article h3 {
+      font-family: var(--font-heading);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: var(--space-3);
+    }
+    .service-article p {
+      color: var(--text-medium);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+    .service-include-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .service-include-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-2) 0;
+      font-size: 0.97rem;
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .service-include-list li:last-child { border-bottom: none; }
+    .service-include-list li .chk {
+      color: var(--sunrise-gold);
+      font-weight: 700;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .service-include-label {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: var(--space-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="page-hero__bg" style="background-image: url('/images/hero-bg.png');" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="page-hero__badge">
+        <span>⭐</span> Personalized Senior Care
+      </div>
+      <h1>Compassionate Care Tailored to You</h1>
+      <p>Discover our comprehensive suite of 24/7 residential care services delivered in our peaceful Marysville home.</p>
+    </div>
+  </section>
+
+  <!-- INTRO SECTION -->
+  <section class="section" aria-labelledby="intro-heading">
+    <div class="container">
+      <div class="services-intro-grid">
+        <div class="reveal-left">
+          <span class="section-label">Care Philosophy</span>
+          <h2 id="intro-heading">Care Centered Around Dignity and Individuality</h2>
+          <p class="lead-text">
+            At {settings.name}, we believe that quality senior care is not one-size-fits-all. Every resident brings their own life story, preferences, and personal needs.
+          </p>
+          <p>
+            With our 5-resident home setting, our caregivers spend meaningful, unhurried time with each person. We collaborate closely with families, physicians, and nurses to maintain comprehensive care plans that adapt as health needs evolve.
+          </p>
+
+          <ul class="feature-list" role="list">
+            <li><span class="chk">✓</span> 24/7 Awake Caregivers</li>
+            <li><span class="chk">✓</span> Intimate 5-Bed Setting</li>
+            <li><span class="chk">✓</span> Personalized Nutrition</li>
+            <li><span class="chk">✓</span> Medication Management</li>
+            <li><span class="chk">✓</span> DSHS State Licensed</li>
+            <li><span class="chk">✓</span> Dementia &amp; Respite Care</li>
+          </ul>
+
+          <div style="margin-top:2rem;">
+            <a href="/schedule-tour" class="btn btn--navy">Schedule a Consultation</a>
+          </div>
+        </div>
+
+        <div class="reveal-right">
+          <img
+            src="/images/caregiver-resident.png"
+            alt="Compassionate care at Sunrise AFH"
+            class="services-intro-img"
+            loading="lazy"
+            width="600"
+            height="420"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES LIST -->
+  <section class="section section--gray" aria-labelledby="services-list-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Our Full Capabilities</span>
+        <h2 id="services-list-heading">Our Care Services</h2>
+        <p>Explore what we provide to ensure your loved one's wellness, safety, and comfort.</p>
+        <div class="section-divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="services-container">
+        {services.map((service) => (
+          <article class="service-article reveal" id={service.id}>
+            <div class="service-article__inner">
+              <div class="service-article__left">
+                <div class="service-icon-box" aria-hidden="true">{service.icon}</div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <div style="margin-top:1.5rem;">
+                  <a href="/schedule-tour" class="btn btn--outline-navy btn--sm">Inquire About This Service</a>
+                </div>
+              </div>
+
+              <div class="service-article__right">
+                <div class="service-include-label">What's Included:</div>
+                <ul class="service-include-list" role="list">
+                  {service.includes.map((item) => (
+                    <li>
+                      <span class="chk" aria-hidden="true">✔</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner" aria-label="Tour invitation">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="section-label" style="color:var(--navy-dark);background:rgba(31,78,121,0.15);">Discuss Your Needs</span>
+      <h2 style="margin-top:1rem;">Have Specific Care Questions?</h2>
+      <p>Call us today to speak directly with our administrator or schedule an in-person tour.</p>
+      <div class="btn-group" style="justify-content:center;">
+        <a href="/schedule-tour" class="btn btn--navy btn--lg">🏠 Schedule a Tour</a>
+        <a href={`tel:${settings.phoneTel}`} class="btn btn--outline-navy btn--lg">📞 Call {settings.phone}</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

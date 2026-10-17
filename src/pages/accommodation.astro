@@ -1,0 +1,393 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings, getRooms, getGallery } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+const rooms = await getRooms();
+const gallery = await getGallery();
+---
+
+<Layout
+  title={`Accommodation & Gallery | ${settings.name} | Marysville, WA`}
+  description={`Tour private rooms, living spaces, and outdoor gardens at ${settings.name} in Marysville, WA. Comfortable 5-bedroom licensed adult family home.`}
+  canonicalPath="/accommodation"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(4rem, 8vw, 7rem) var(--space-4) clamp(3rem, 6vw, 5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .page-hero__actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .two-col-grid { grid-template-columns: 1fr; }
+    }
+    .two-col-grid__image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .accom-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+    @media (max-width: 600px) {
+      .accom-features { grid-template-columns: repeat(2, 1fr); }
+    }
+    .accom-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--white);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+    .accom-feature__icon {
+      font-size: 1.4rem;
+    }
+
+    .gallery-grid-full {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    @media (max-width: 900px) {
+      .gallery-grid-full { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 550px) {
+      .gallery-grid-full { grid-template-columns: 1fr; }
+    }
+    .gallery-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      background: #000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+    .gallery-card:hover img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    .gallery-card__caption {
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      background: linear-gradient(to top, rgba(15,32,67,0.92) 0%, rgba(15,32,67,0.5) 70%, transparent 100%);
+      color: #fff;
+      padding: 1.25rem 1rem 0.85rem;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .gallery-category-pill {
+      font-size: 0.75rem;
+      background: var(--sunrise-gold);
+      color: var(--navy-dark);
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    @media (max-width: 990px) {
+      .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 650px) {
+      .rooms-grid { grid-template-columns: 1fr; }
+    }
+    .room-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+    }
+    .room-card__img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+    .room-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .room-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .room-badge--Available {
+      background: #10B981;
+      color: #fff;
+    }
+    .room-badge--Inquire {
+      background: var(--sunrise-gold);
+      color: var(--navy-dark);
+    }
+    .room-badge--Occupied {
+      background: #64748B;
+      color: #fff;
+    }
+    .room-card__body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .room-card__title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .room-card__desc {
+      color: var(--text-medium);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+    .room-features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.25rem;
+      font-size: 0.875rem;
+      color: var(--text-dark);
+    }
+    .room-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="page-hero__bg" style="background-image: url('/images/living-dining.png');" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-label" style="background:rgba(244,180,0,0.18);color:var(--sunrise-gold);border:1px solid rgba(244,180,0,0.4);display:inline-block;padding:0.35rem 1rem;border-radius:999px;font-size:0.875rem;font-weight:600;margin-bottom:1rem;">Our Home</div>
+      <h1>Accommodation &amp; Photo Gallery</h1>
+      <p>Comfortable, dignified living spaces designed to feel like a true home. Explore our private bedrooms, common living areas, and peaceful garden.</p>
+      <div class="page-hero__actions">
+        <a href="/schedule-tour" class="btn btn--primary btn--lg">Schedule a Tour</a>
+        <a href="#gallery" class="btn btn--secondary btn--lg">View Gallery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOMMODATION OVERVIEW -->
+  <section class="section" aria-labelledby="accom-heading">
+    <div class="container">
+      <div class="two-col-grid reveal">
+        <div class="two-col-grid__image">
+          <img
+            src="/images/bedroom.png"
+            alt="Comfortable private bedroom at Sunrise Adult Family Home"
+            loading="lazy"
+            width="600"
+            height="450"
+          />
+        </div>
+        <div class="two-col-grid__content">
+          <div class="section-label">Our Spaces</div>
+          <h2 id="accom-heading" class="section-title section-title--left">Warm &amp; Dignified Living Spaces</h2>
+          <p class="lead-text">Our home at {settings.address} offers 5 private bedrooms in a quiet, residential Marysville neighborhood — a true home, not an institution.</p>
+          <p>Every detail of our home has been carefully selected to foster comfort, safety, and emotional wellbeing. From wide hallways and non-slip flooring to peaceful garden paths, our physical space encourages both personal independence and complete peace of mind.</p>
+          <p>Residents are warmly invited to bring their favorite personal items, family photographs, and beloved furniture to make their private bedroom truly their own.</p>
+
+          <div class="accom-features" role="list" aria-label="Home features">
+            <div class="accom-feature" role="listitem">
+              <span class="accom-feature__icon" aria-hidden="true">🛏️</span>
+              <span>5 Private Bedrooms</span>
+            </div>
+            <div class="accom-feature" role="listitem">
+              <span class="accom-feature__icon" aria-hidden="true">🚿</span>
+              <span>2 Full Bathrooms</span>
+            </div>
+            <div class="accom-feature" role="listitem">
+              <span class="accom-feature__icon" aria-hidden="true">🛋️</span>
+              <span>Shared Living Room</span>
+            </div>
+            <div class="accom-feature" role="listitem">
+              <span class="accom-feature__icon" aria-hidden="true">🍽️</span>
+              <span>Warm Dining Area</span>
+            </div>
+            <div class="accom-feature" role="listitem">
+              <span class="accom-feature__icon" aria-hidden="true">🌿</span>
+              <span>Outdoor Garden</span>
+            </div>
+            <div class="accom-feature" role="listitem">
+              <span class="accom-feature__icon" aria-hidden="true">♿</span>
+              <span>ADA Wheelchair Safe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS LISTING -->
+  <section class="section section--gray" aria-labelledby="rooms-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Private Accommodations</span>
+        <h2 id="rooms-heading">Private Bedrooms &amp; Availability</h2>
+        <p>Each of our five private rooms offers privacy, comfort, and direct caregiver call support. Current status is updated below.</p>
+        <div class="section-divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="rooms-grid">
+        {rooms.map((room) => (
+          <article class="room-card reveal">
+            <div class="room-card__img-wrap">
+              <img src={room.image} alt={room.title} class="room-card__img" loading="lazy" />
+              <div class={`room-badge room-badge--${room.status}`}>{room.status}</div>
+            </div>
+            <div class="room-card__body">
+              <h3 class="room-card__title">{room.title}</h3>
+              <p class="room-card__desc">{room.description}</p>
+              <ul class="room-features-list">
+                {room.features.map((feat) => (
+                  <li>
+                    <span style="color:var(--sunrise-gold);font-weight:bold;">✔</span>
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+              <div style="margin-top:auto;">
+                <a href="/schedule-tour" class="btn btn--outline-navy btn--sm" style="width:100%;justify-content:center;">
+                  Inquire About This Room
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="section" id="gallery" aria-labelledby="gallery-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Photo Tour</span>
+        <h2 id="gallery-heading">Explore Our Home Gallery</h2>
+        <p>Take a peek inside our residence, social areas, bedrooms, and gardens.</p>
+        <div class="section-divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="gallery-grid-full reveal">
+        {gallery.map((item) => (
+          <div
+            class="gallery-card"
+            data-lightbox={item.image}
+            data-caption={item.caption}
+            role="button"
+            tabindex="0"
+            aria-label={`View ${item.title}`}
+          >
+            <img src={item.image} alt={item.title} loading="lazy" />
+            <div class="gallery-card__caption">
+              <span>{item.title}</span>
+              <span class="gallery-category-pill">{item.category}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner" aria-label="Schedule a tour banner">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="section-label" style="color:var(--navy-dark);background:rgba(31,78,121,0.15);">See It In Person</span>
+      <h2 style="margin-top:1rem;">Schedule Your Private In-Person Tour</h2>
+      <p>We welcome you and your family to visit our home, meet our staff, and view available bedrooms.</p>
+      <div class="btn-group" style="justify-content:center;">
+        <a href="/schedule-tour" class="btn btn--navy btn--lg">🏠 Schedule a Tour</a>
+        <a href={`tel:${settings.phoneTel}`} class="btn btn--outline-navy btn--lg">📞 Call {settings.phone}</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

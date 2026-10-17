@@ -1,0 +1,390 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+---
+
+<Layout
+  title={`About Us | ${settings.name} | Marysville, WA`}
+  description={`Learn about ${settings.name} in Marysville, WA. Our compassionate mission, dedicated caregivers, and commitment to providing 24/7 personalized residential care.`}
+  canonicalPath="/about"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(4rem, 8vw, 7rem) var(--space-4) clamp(3rem, 6vw, 5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    .page-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(244,180,0,0.18);
+      border: 1px solid rgba(244,180,0,0.4);
+      color: var(--sunrise-gold);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-12);
+    }
+    @media (max-width: 768px) {
+      .mission-vision-grid { grid-template-columns: 1fr; }
+    }
+    .mission-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-md);
+      border-top: 4px solid var(--sunrise-gold);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .mission-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .mission-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-4);
+      display: block;
+    }
+    .mission-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: var(--space-3);
+    }
+    .mission-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .values-label {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      color: var(--navy);
+      margin-bottom: var(--space-6);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+    @media (max-width: 900px) {
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+    .value-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .value-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .value-card__icon {
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+    .value-card__text {
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+
+    .about-story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .about-story-grid { grid-template-columns: 1fr; }
+      .about-story-grid .story-image { order: -1; }
+    }
+    .story-image {
+      position: relative;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .story-image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .story-image__badge {
+      position: absolute;
+      bottom: var(--space-4);
+      left: var(--space-4);
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-3) var(--space-4);
+      box-shadow: var(--shadow-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .story-text h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      color: var(--navy);
+      margin-bottom: var(--space-5);
+      line-height: 1.25;
+    }
+    .story-text p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-4);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    @media (max-width: 900px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .team-grid { grid-template-columns: 1fr; }
+    }
+    .team-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), #2d6aa0);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto var(--space-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(31,78,121,0.3);
+    }
+    .team-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: var(--space-1);
+    }
+    .team-card__title {
+      font-size: 0.875rem;
+      color: var(--sunrise-gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-3);
+    }
+    .team-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="page-hero__bg" style="background-image: url('/images/hero-bg.png');" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="page-hero__badge">
+        <span>🌅</span> About Our Home
+      </div>
+      <h1>Compassionate Care Rooted in Family</h1>
+      <p>Discover the story, mission, and dedicated caregivers behind {settings.name} in Marysville, Washington.</p>
+    </div>
+  </section>
+
+  <!-- MISSION & VISION -->
+  <section class="section" aria-labelledby="mission-heading">
+    <div class="container">
+      <div class="mission-vision-grid reveal">
+        <div class="mission-card">
+          <span class="mission-card__icon" aria-hidden="true">🎯</span>
+          <h3 id="mission-heading">Our Mission</h3>
+          <p>
+            At {settings.name}, our mission is to provide personalized, dignified, and compassionate 24/7 care in a true residential home setting. We believe that every senior deserves to live with purpose, comfort, and security, surrounded by caregivers who treat them like beloved family members.
+          </p>
+        </div>
+        <div class="mission-card">
+          <span class="mission-card__icon" aria-hidden="true">🔭</span>
+          <h3>Our Vision</h3>
+          <p>
+            We envision a community where residential senior care is defined by warmth, individualized attention, and uncompromising quality of life. Through high caregiver-to-resident ratios and proactive health oversight, we set the highest standard for Adult Family Homes in Washington State.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="values-label reveal">Our Core Values</h2>
+      <div class="values-grid reveal">
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">🤝</span>
+          <span class="value-card__text">Dignity &amp; Respect</span>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">🛡️</span>
+          <span class="value-card__text">Safety First</span>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">❤️</span>
+          <span class="value-card__text">Heartfelt Compassion</span>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">👨‍👩‍👧</span>
+          <span class="value-card__text">Family Partnership</span>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">🌟</span>
+          <span class="value-card__text">Individualized Care</span>
+        </div>
+        <div class="value-card">
+          <span class="value-card__icon" aria-hidden="true">🏡</span>
+          <span class="value-card__text">Home Comfort</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="section section--gray" aria-labelledby="story-heading">
+    <div class="container">
+      <div class="about-story-grid">
+        <div class="story-image reveal-left">
+          <img
+            src="/images/caregiver-resident.png"
+            alt="Dedicated caregiver at Sunrise AFH"
+            loading="lazy"
+            width="600"
+            height="420"
+          >
+          <div class="story-image__badge">
+            <span>🏠</span> Licensed by WA State DSHS
+          </div>
+        </div>
+        <div class="story-text reveal-right">
+          <span class="section-label">Our Story</span>
+          <h2 id="story-heading">Created from a Deep Passion for Quality Senior Care</h2>
+          <p>
+            {settings.name} was founded with a singular purpose: to offer families an authentic alternative to large, institutional nursing facilities. We recognized that seniors thrive most when they are in an intimate, tranquil setting where their daily habits, cultural preferences, and personal dignities are deeply respected.
+          </p>
+          <p>
+            Located in a quiet, friendly neighborhood in Marysville, our home provides 5 private bedrooms where residents can enjoy privacy, customized routines, home-cooked meals, and gentle daily companionship.
+          </p>
+          <p>
+            We maintain close relationships with residents' physicians, specialists, and families, ensuring consistent medical oversight and total transparency every step of the way.
+          </p>
+          <div style="margin-top:2rem;">
+            <a href="/schedule-tour" class="btn btn--navy">Schedule a Tour</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARE TEAM -->
+  <section class="section" aria-labelledby="team-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Our People</span>
+        <h2 id="team-heading">Dedicated, Certified Caregivers</h2>
+        <p>Our experienced staff is trained in CPR, First Aid, Dementia Care, Mental Health, and Medication Administration.</p>
+        <div class="section-divider" aria-hidden="true"></div>
+      </div>
+
+      <div class="team-grid reveal">
+        <div class="team-card">
+          <div class="team-avatar">AF</div>
+          <h3>Home Administrator</h3>
+          <div class="team-card__title">Owner &amp; Administrator</div>
+          <p>Dedicated to ensuring the highest standards of safety, DSHS compliance, and individualized resident wellness across our home.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">LC</div>
+          <h3>Lead Caregiver</h3>
+          <div class="team-card__title">Senior Care Specialist</div>
+          <p>Experienced in comprehensive ADL support, dementia care routines, and nurturing empathetic, family-oriented environments.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">RC</div>
+          <h3>Care Coordinator</h3>
+          <div class="team-card__title">Health &amp; Nutrition</div>
+          <p>Oversees fresh home-cooked meal preparation, dietary accommodations, and resident engagement activities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner" aria-label="Tour invitation">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="section-label" style="color:var(--navy-dark);background:rgba(31,78,121,0.15);">Come Meet Us</span>
+      <h2 style="margin-top:1rem;">We'd Love to Welcome You for a Tour</h2>
+      <p>Experience the warmth, cleanliness, and peace of mind at {settings.name}.</p>
+      <div class="btn-group" style="justify-content:center;">
+        <a href="/schedule-tour" class="btn btn--navy btn--lg">🏠 Schedule a Tour</a>
+        <a href={`tel:${settings.phoneTel}`} class="btn btn--outline-navy btn--lg">📞 Call {settings.phone}</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

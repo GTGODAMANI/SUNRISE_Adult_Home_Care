@@ -1,0 +1,268 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+---
+
+<Layout
+  title={`Schedule a Tour | ${settings.name} | Marysville, WA`}
+  description={`Schedule a free in-person tour of ${settings.name} in Marysville, WA. Meet our caregivers, tour our 5 private bedrooms, and discuss personalized care options.`}
+  canonicalPath="/schedule-tour"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(4rem, 8vw, 6rem) var(--space-4) clamp(3rem, 5vw, 4.5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .tour-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-12);
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .tour-grid { grid-template-columns: 1fr; }
+    }
+
+    .tour-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .tour-card-item {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      border-left: 4px solid var(--sunrise-gold);
+    }
+    .tour-card-item__icon {
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+    .tour-card-item h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+    .tour-card-item p {
+      color: var(--text-medium);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="page-hero__bg" style="background-image: url('/images/caregiver-resident.png');" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-label" style="background:rgba(244,180,0,0.18);color:var(--sunrise-gold);border:1px solid rgba(244,180,0,0.4);display:inline-block;padding:0.35rem 1rem;border-radius:999px;font-size:0.875rem;font-weight:600;margin-bottom:1rem;">Book a Visit</div>
+      <h1>Schedule a Free Private Tour</h1>
+      <p>We invite you and your family to tour our warm home, meet our care team, and discuss care arrangements in a comfortable, unpressured atmosphere.</p>
+    </div>
+  </section>
+
+  <!-- TOUR BOOKING SECTION -->
+  <section class="section" aria-labelledby="tour-section-heading">
+    <div class="container">
+      <div class="tour-grid">
+        <div class="reveal-left">
+          <span class="section-label">What to Expect</span>
+          <h2 id="tour-section-heading">Experience Our Home Firsthand</h2>
+          <p class="lead-text">Choosing a care home is one of the most important decisions a family can make. We encourage you to visit in person so you can feel the warmth, meet our caregivers, and observe daily life.</p>
+
+          <div class="tour-card-list">
+            <div class="tour-card-item">
+              <div class="tour-card-item__icon">🕒</div>
+              <div>
+                <h4>30–45 Minute Guided Visit</h4>
+                <p>A relaxed, personalized tour of our bedrooms, dining area, living room, and peaceful garden.</p>
+              </div>
+            </div>
+            <div class="tour-card-item">
+              <div class="tour-card-item__icon">👥</div>
+              <div>
+                <h4>Meet Our Care Team</h4>
+                <p>Speak directly with our administrator and caregivers to ask about staffing, routines, and training.</p>
+              </div>
+            </div>
+            <div class="tour-card-item">
+              <div class="tour-card-item__icon">📋</div>
+              <div>
+                <h4>Custom Care Plan Review</h4>
+                <p>Discuss your loved one's specific physical, dietary, and cognitive needs in confidence.</p>
+              </div>
+            </div>
+            <div class="tour-card-item">
+              <div class="tour-card-item__icon">💬</div>
+              <div>
+                <h4>Transparent Answers</h4>
+                <p>Get clear, honest information regarding monthly rates, admissions, and day-to-day life.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem; padding:1.5rem; background:linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); border-radius:var(--radius-xl); color:#fff;">
+            <h4 style="color:var(--sunrise-gold); margin-bottom:0.5rem; font-family:var(--font-heading);">Need Immediate Assistance?</h4>
+            <p style="font-size:0.92rem; color:rgba(255,255,255,0.85); margin-bottom:1rem;">If you need placement advice or urgent answers today, please give us a direct phone call.</p>
+            <a href={`tel:${settings.phoneTel}`} class="btn btn--primary" style="width:100%;justify-content:center;">
+              📞 Call {settings.phone}
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal-right">
+          <div class="form-box" style="background:var(--white); padding:2.5rem; border-radius:var(--radius-2xl); box-shadow:var(--shadow-xl); border-top:5px solid var(--sunrise-gold);">
+            <h3 style="font-family:var(--font-heading); color:var(--navy); font-size:1.75rem; margin-bottom:0.5rem;">Request Your Tour</h3>
+            <p style="color:var(--text-medium); margin-bottom:1.5rem;">Please complete this form and our administrator will follow up within 24 hours to confirm your appointment.</p>
+
+            <div id="tourSuccess" class="form-success" role="alert" aria-live="polite">
+              <div class="success-icon" aria-hidden="true">🎉</div>
+              <h3>Tour Request Received!</h3>
+              <p>Thank you! We will reach out within 24 hours to confirm your scheduled visit. We look forward to meeting you at {settings.shortName}.</p>
+            </div>
+
+            <form id="tourForm" novalidate aria-label="Schedule a tour form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="tourFullName">Your Full Name <span class="required" aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="tourFullName"
+                    name="full_name"
+                    placeholder="Your name"
+                    data-validate="required"
+                    autocomplete="name"
+                    aria-required="true"
+                  >
+                  <span class="form-error" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="tourPhone">Phone Number <span class="required" aria-hidden="true">*</span></label>
+                  <input
+                    type="tel"
+                    id="tourPhone"
+                    name="phone"
+                    placeholder="(xxx) xxx-xxxx"
+                    data-validate="required phone"
+                    autocomplete="tel"
+                    aria-required="true"
+                  >
+                  <span class="form-error" role="alert"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="tourEmail">Email Address <span class="required" aria-hidden="true">*</span></label>
+                <input
+                  type="email"
+                  id="tourEmail"
+                  name="email"
+                  placeholder="name@example.com"
+                  data-validate="required email"
+                  autocomplete="email"
+                  aria-required="true"
+                >
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="tourResidentName">Prospective Resident's Name</label>
+                  <input
+                    type="text"
+                    id="tourResidentName"
+                    name="resident_name"
+                    placeholder="Resident's name"
+                    autocomplete="off"
+                  >
+                  <span class="form-error" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="tourDate">Preferred Tour Date <span class="required" aria-hidden="true">*</span></label>
+                  <input
+                    type="date"
+                    id="tourDate"
+                    name="preferred_date"
+                    data-validate="required"
+                    aria-required="true"
+                  >
+                  <span class="form-error" role="alert"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="tourCareNeeds">Primary Care Requirement</label>
+                <select id="tourCareNeeds" name="care_needs">
+                  <option value="">Select care need...</option>
+                  <option value="Personal Care Assistance">Personal Care &amp; ADL Assistance</option>
+                  <option value="Medication Administration">Medication Administration</option>
+                  <option value="Memory & Dementia Care">Memory Care (Dementia / Alzheimer's)</option>
+                  <option value="Short-Term Respite">Short-Term Respite Care</option>
+                  <option value="24/7 Total Oversight">24/7 Awake Supervision</option>
+                  <option value="General Residential Care">General Senior Residential Care</option>
+                </select>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="tourMessage">Questions or Notes for Our Staff</label>
+                <textarea
+                  id="tourMessage"
+                  name="message"
+                  placeholder="Share any special preferences, medical concerns, or questions you would like us to prepare for..."
+                  rows="4"
+                ></textarea>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true">
+
+              <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;" id="tourSubmitBtn">
+                🏠 Submit Tour Request
+              </button>
+
+              <p style="font-size:0.75rem;color:#94A3B8;text-align:center;margin-top:1rem;">
+                We respect your family's confidentiality. Information submitted is kept private and used only for your inquiry.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,18 @@
+# Node dependencies
+node_modules/
+
+# Build outputs
+dist/
+.astro/
+
+# Environment variables
+.env
+.env.production
+.env.local
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/

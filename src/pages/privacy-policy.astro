@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+---
+
+<Layout
+  title={`Privacy Policy | ${settings.name}`}
+  description={`Privacy Policy for ${settings.name} in Marysville, Washington.`}
+  canonicalPath="/privacy-policy"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(3.5rem, 6vw, 5rem) var(--space-4);
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-2);
+    }
+    .legal-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 3rem;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-md);
+      line-height: 1.8;
+      color: var(--text-dark);
+    }
+    @media (max-width: 600px) {
+      .legal-content { padding: 1.5rem; }
+    }
+    .legal-content h2 {
+      font-family: var(--font-heading);
+      color: var(--navy);
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .legal-content p, .legal-content ul {
+      margin-bottom: 1rem;
+      color: var(--text-medium);
+    }
+    .legal-content ul {
+      padding-left: 1.5rem;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p style="color:rgba(255,255,255,0.8); margin:0;">Last Updated: October 2026</p>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="section section--gray">
+    <div class="container">
+      <div class="legal-content">
+        <p>
+          At <strong>{settings.name}</strong> ("we," "our," or "us"), we are deeply committed to protecting your privacy and the confidentiality of prospective and current residents and their families. This Privacy Policy describes how we collect, use, and protect information submitted through our website.
+        </p>
+
+        <h2>1. Information We Collect</h2>
+        <p>When you use our website to inquire about our services or schedule an in-person tour, we may collect personal information that you voluntarily provide, including:</p>
+        <ul>
+          <li>Full name and relationship to prospective resident</li>
+          <li>Phone number and email address</li>
+          <li>Prospective resident's name and relevant care needs</li>
+          <li>Preferred dates and notes submitted in inquiry forms</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>We use the information collected solely to:</p>
+        <ul>
+          <li>Respond to your tour scheduling requests and care questions</li>
+          <li>Coordinate appointments and communications regarding care services</li>
+          <li>Provide relevant updates and information about {settings.name}</li>
+        </ul>
+        <p><strong>We will never sell, rent, or lease your personal information to third parties.</strong></p>
+
+        <h2>3. Confidentiality &amp; Health Information</h2>
+        <p>
+          We respect the sensitivity of health-related inquiries. Any information you share regarding medical conditions or care needs is held in strict professional confidence in compliance with applicable Washington State senior care privacy guidelines.
+        </p>
+
+        <h2>4. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy or how your personal information is handled, please contact us at:</p>
+        <p>
+          <strong>{settings.name}</strong><br>
+          Address: {settings.address}<br>
+          Phone: <a href={`tel:${settings.phoneTel}`}>{settings.phone}</a><br>
+          Email: <a href={`mailto:${settings.email}`}>{settings.email}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</Layout>

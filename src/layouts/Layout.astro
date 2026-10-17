@@ -1,0 +1,101 @@
+---
+import '../styles/main.css';
+import '../styles/animations.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { getSiteSettings } from '../lib/sanity';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  transparentNav?: boolean;
+}
+
+const settings = await getSiteSettings();
+
+const {
+  title = `${settings.name} | Compassionate 24/7 Senior Care in Marysville, WA`,
+  description = `${settings.name} provides compassionate, personalized 24/7 residential care for seniors in Marysville, Washington. Licensed Adult Family Home with 5 bedrooms. Schedule a tour today.`,
+  canonicalPath = '/',
+  ogImage = '/images/hero-bg.png',
+  transparentNav = false,
+} = Astro.props;
+
+const canonicalUrl = `https://www.sunriseafh.com${canonicalPath}`;
+const currentPath = Astro.url.pathname;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ResidentialFacility",
+  "name": settings.name,
+  "description": description,
+  "url": "https://www.sunriseafh.com",
+  "telephone": settings.phoneTel,
+  "email": settings.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": settings.streetAddress,
+    "addressLocality": settings.city,
+    "addressRegion": settings.state,
+    "postalCode": settings.zip,
+    "addressCountry": "US"
+  },
+  "openingHours": "Mo-Su 00:00-24:00",
+  "priceRange": "$$",
+  "areaServed": {
+    "@type": "State",
+    "name": "Washington"
+  },
+  "sameAs": [
+    settings.facebookUrl || "https://www.facebook.com/",
+    settings.instagramUrl || "https://www.instagram.com/"
+  ]
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="keywords" content="Adult Family Home Washington, Senior Care Home Marysville WA, Residential Care Washington, 24 Hour Senior Care, Memory Care Home Washington, Adult Family Home Near Me, Assisted Living Alternative Washington">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href={canonicalUrl}>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={canonicalUrl}>
+  <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `https://www.sunriseafh.com${ogImage}`}>
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `https://www.sunriseafh.com${ogImage}`}>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌅</text></svg>">
+</head>
+<body>
+
+  <Navbar currentPath={currentPath} settings={settings} transparent={transparentNav} />
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <Footer settings={settings} />
+
+  <script is:inline src="/js/main.js"></script>
+  <script is:inline src="/js/form.js"></script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+---
+
+<Layout
+  title={`Contact Us | ${settings.name} | Marysville, WA`}
+  description={`Get in touch with ${settings.name} in Marysville, WA. Call ${settings.phone} or send us a message to discuss 24/7 adult family home care.`}
+  canonicalPath="/contact"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(4rem, 8vw, 6rem) var(--space-4) clamp(3rem, 5vw, 4.5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .contact-page-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-12);
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .contact-page-grid { grid-template-columns: 1fr; }
+    }
+
+    .contact-details-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .c-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      border: 1px solid var(--border-light);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .c-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .c-card__icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .c-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+    .c-card a, .c-card p {
+      color: var(--text-dark);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+      text-decoration: none;
+    }
+    .c-card a:hover {
+      color: var(--navy);
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="page-hero__bg" style="background-image: url('/images/hero-bg.png');" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-label" style="background:rgba(244,180,0,0.18);color:var(--sunrise-gold);border:1px solid rgba(244,180,0,0.4);display:inline-block;padding:0.35rem 1rem;border-radius:999px;font-size:0.875rem;font-weight:600;margin-bottom:1rem;">We're Here for You</div>
+      <h1>Contact {settings.shortName}</h1>
+      <p>Whether you have questions about placement, want to schedule a visit, or need assistance, our caring team is ready to help 24/7.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT CONTENT -->
+  <section class="section" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-page-grid">
+        <div class="reveal-left">
+          <span class="section-label">Connect With Us</span>
+          <h2 id="contact-heading">Get in Touch Directly</h2>
+          <p class="lead-text">Reach out by phone, email, or send us a message below. We take pride in responding promptly and compassionately to all family inquiries.</p>
+
+          <div class="contact-details-cards">
+            <div class="c-card">
+              <div class="c-card__icon" aria-hidden="true">📞</div>
+              <div>
+                <h4>Direct Phone</h4>
+                <a href={`tel:${settings.phoneTel}`}>{settings.phone}</a>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:3px;">Available 24 hours a day, 7 days a week</p>
+              </div>
+            </div>
+
+            <div class="c-card">
+              <div class="c-card__icon" aria-hidden="true">✉️</div>
+              <div>
+                <h4>Email Address</h4>
+                <a href={`mailto:${settings.email}`}>{settings.email}</a>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:3px;">We typically reply within 24 hours</p>
+              </div>
+            </div>
+
+            <div class="c-card">
+              <div class="c-card__icon" aria-hidden="true">📍</div>
+              <div>
+                <h4>Physical Location</h4>
+                <p>{settings.streetAddress}<br>{settings.city}, {settings.state} {settings.zip}</p>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:3px;">Quiet, safe residential neighborhood</p>
+              </div>
+            </div>
+
+            <div class="c-card">
+              <div class="c-card__icon" aria-hidden="true">🕐</div>
+              <div>
+                <h4>Care Schedule</h4>
+                <p>{settings.hours}</p>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin-top:3px;">Always open for resident safety &amp; emergency needs</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:2.5rem; border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-md);">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2678.5!2d-122.177!3d48.052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDAzJzA3LjIiTiAxMjLCsDEwJzM3LjIiVw!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
+              width="100%"
+              height="260"
+              style="border:0; display:block;"
+              title={`${settings.name} Location`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="reveal-right">
+          <div class="form-box" style="background:var(--white); padding:2.5rem; border-radius:var(--radius-2xl); box-shadow:var(--shadow-xl); border-top:5px solid var(--navy);">
+            <h3 style="font-family:var(--font-heading); color:var(--navy); font-size:1.75rem; margin-bottom:0.5rem;">Send Us a Message</h3>
+            <p style="color:var(--text-medium); margin-bottom:1.5rem;">Have a question about our home or care levels? Fill out the form and our administrator will respond promptly.</p>
+
+            <div id="contactSuccess" class="form-success" role="alert" aria-live="polite">
+              <div class="success-icon" aria-hidden="true">✉️</div>
+              <h3>Message Sent Successfully!</h3>
+              <p>Thank you for reaching out to {settings.name}. We will review your message and contact you within 24 hours.</p>
+            </div>
+
+            <form id="contactForm" novalidate aria-label="General contact inquiry form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contactFullName">Your Full Name <span class="required" aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="contactFullName"
+                    name="full_name"
+                    placeholder="Jane Doe"
+                    data-validate="required"
+                    autocomplete="name"
+                    aria-required="true"
+                  >
+                  <span class="form-error" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="contactPhone">Phone Number <span class="required" aria-hidden="true">*</span></label>
+                  <input
+                    type="tel"
+                    id="contactPhone"
+                    name="phone"
+                    placeholder="(206) 555-0199"
+                    data-validate="required phone"
+                    autocomplete="tel"
+                    aria-required="true"
+                  >
+                  <span class="form-error" role="alert"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail">Email Address <span class="required" aria-hidden="true">*</span></label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  placeholder="jane@example.com"
+                  data-validate="required email"
+                  autocomplete="email"
+                  aria-required="true"
+                >
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="contactSubject">Subject</label>
+                <input
+                  type="text"
+                  id="contactSubject"
+                  name="subject"
+                  placeholder="e.g. Inquiring about bedroom availability"
+                >
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">Your Message <span class="required" aria-hidden="true">*</span></label>
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  placeholder="How can we assist you and your loved one?"
+                  rows="5"
+                  data-validate="required"
+                  aria-required="true"
+                ></textarea>
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true">
+
+              <button type="submit" class="btn btn--navy" style="width:100%;justify-content:center;" id="contactSubmitBtn">
+                ✉️ Send Message
+              </button>
+
+              <p style="font-size:0.75rem;color:#94A3B8;text-align:center;margin-top:1rem;">
+                Your inquiry is strictly confidential. We will never share your personal information.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

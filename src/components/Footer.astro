@@ -1,0 +1,93 @@
+---
+import type { SiteSettings } from '../lib/defaultData';
+
+interface Props {
+  settings: SiteSettings;
+}
+
+const { settings } = Astro.props;
+---
+
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="navbar__logo" style="margin-bottom:1rem;text-decoration:none;">
+          <div class="logo-icon" aria-hidden="true">🌅</div>
+          <div class="logo-text">
+            <span class="logo-main">{settings.shortName}</span>
+            <span class="logo-sub">Adult Family Home LLC</span>
+          </div>
+        </a>
+        <p>Providing compassionate, personalized 24/7 residential care for seniors and adults in a warm, home-like environment in Marysville, Washington.</p>
+        <div class="footer__social">
+          <a href={settings.facebookUrl || "https://facebook.com"} class="social-link" aria-label="Facebook" rel="noopener noreferrer" target="_blank">📘</a>
+          <a href={settings.instagramUrl || "https://instagram.com"} class="social-link" aria-label="Instagram" rel="noopener noreferrer" target="_blank">📸</a>
+          <a href={`mailto:${settings.email}`} class="social-link" aria-label="Send us an email">✉️</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/services">Our Services</a></li>
+          <li><a href="/accommodation">Accommodation</a></li>
+          <li><a href="/schedule-tour">Schedule a Tour</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="/services#personal-care">Personal Care</a></li>
+          <li><a href="/services#medication-management">Medication Management</a></li>
+          <li><a href="/services#meals-nutrition">Nutritious Meals</a></li>
+          <li><a href="/services#memory-care">Memory Care</a></li>
+          <li><a href="/services#companionship">Companionship</a></li>
+          <li><a href="/services#safety-monitoring">24/7 Supervision</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact Us</h4>
+        <div class="footer__contact-item">
+          <span class="icon" aria-hidden="true">📞</span>
+          <div><a href={`tel:${settings.phoneTel}`}>{settings.phone}</a></div>
+        </div>
+        <div class="footer__contact-item">
+          <span class="icon" aria-hidden="true">✉️</span>
+          <div><a href={`mailto:${settings.email}`}>{settings.email}</a></div>
+        </div>
+        <div class="footer__contact-item">
+          <span class="icon" aria-hidden="true">📍</span>
+          <div>{settings.streetAddress}<br>{settings.city}, {settings.state} {settings.zip}</div>
+        </div>
+        <div class="footer__contact-item">
+          <span class="icon" aria-hidden="true">🕐</span>
+          <div>{settings.hours}</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span id="currentYear">{new Date().getFullYear()}</span> {settings.name}. All rights reserved. Licensed Adult Family Home — Washington State.</p>
+      <div class="footer__bottom-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/faq">FAQ</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox__close" aria-label="Close image viewer">✕</button>
+  <img class="lightbox__img" id="lightboxImg" src="" alt="">
+</div>
+
+<!-- Floating CTAs -->
+<div class="float-cta" role="complementary" aria-label="Quick contact actions">
+  <a href={`tel:${settings.phoneTel}`} class="float-btn float-btn--call" aria-label={`Call ${settings.name}`}>📞 Call Now</a>
+  <a href="/schedule-tour" class="float-btn float-btn--tour" aria-label="Schedule a home tour">🏠 Schedule Tour</a>
+</div>

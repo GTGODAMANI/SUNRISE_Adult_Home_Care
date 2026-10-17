@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSiteSettings, getFaqs } from '../lib/sanity';
+
+const settings = await getSiteSettings();
+const faqs = await getFaqs();
+---
+
+<Layout
+  title={`FAQ | ${settings.name} | Senior Care Questions Answered`}
+  description={`Frequently asked questions about ${settings.name} in Marysville, WA. Licensing, services, admissions, visitation, and care plans.`}
+  canonicalPath="/faq"
+>
+  <style>
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
+      padding: clamp(4rem, 8vw, 6rem) var(--space-4) clamp(3rem, 5vw, 4.5rem);
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-4);
+      line-height: 1.2;
+    }
+    .page-hero p {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .faq-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .faq-help-box {
+      background: var(--white);
+      border-radius: var(--radius-2xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border-top: 4px solid var(--sunrise-gold);
+      text-align: center;
+      margin-top: 4rem;
+    }
+  </style>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Page header">
+    <div class="page-hero__bg" style="background-image: url('/images/hero-bg.png');" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-label" style="background:rgba(244,180,0,0.18);color:var(--sunrise-gold);border:1px solid rgba(244,180,0,0.4);display:inline-block;padding:0.35rem 1rem;border-radius:999px;font-size:0.875rem;font-weight:600;margin-bottom:1rem;">Help &amp; Answers</div>
+      <h1>Frequently Asked Questions</h1>
+      <p>Have questions about adult family home care, licensing, admissions, or routines? Find clear answers below.</p>
+    </div>
+  </section>
+
+  <!-- FAQ LIST -->
+  <section class="section" aria-labelledby="faq-page-heading">
+    <div class="container">
+      <div class="faq-container">
+        <div class="section-header reveal">
+          <span class="section-label">Common Inquiries</span>
+          <h2 id="faq-page-heading">Clear Answers for Families</h2>
+          <p>We believe in total transparency. If your question isn't answered here, please don't hesitate to contact us.</p>
+          <div class="section-divider" aria-hidden="true"></div>
+        </div>
+
+        <div class="faq-list" role="list">
+          {faqs.map((faq, index) => (
+            <div class="faq-item reveal" role="listitem">
+              <button
+                class="faq-question"
+                aria-expanded="false"
+                id={`faq-btn-${index}`}
+                aria-controls={`faq-ans-${index}`}
+              >
+                {faq.question}
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div
+                class="faq-answer"
+                id={`faq-ans-${index}`}
+                aria-labelledby={`faq-btn-${index}`}
+                role="region"
+              >
+                <div class="faq-answer__inner">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="faq-help-box reveal">
+          <h3 style="font-family:var(--font-heading); color:var(--navy); font-size:1.6rem; margin-bottom:0.5rem;">Still Have Questions?</h3>
+          <p style="color:var(--text-medium); max-width:550px; margin:0 auto 1.5rem;">Every family's situation is unique. Our administrator is happy to answer your specific questions and discuss your loved one's care requirements.</p>
+          <div class="btn-group" style="justify-content:center;">
+            <a href={`tel:${settings.phoneTel}`} class="btn btn--primary">📞 Call {settings.phone}</a>
+            <a href="/contact" class="btn btn--navy">Send a Message</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
