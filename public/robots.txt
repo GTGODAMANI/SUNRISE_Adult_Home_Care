@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.sunriseafh.com/sitemap.xml
+Sitemap: https://sunriseadultcare.vercel.app/sitemap.xml
 
 # Sunrise Adult Family Home LLC
 # Marysville, WA 98270

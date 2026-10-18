@@ -23,7 +23,7 @@ const {
   transparentNav = false,
 } = Astro.props;
 
-const canonicalUrl = `https://www.sunriseafh.com${canonicalPath}`;
+const canonicalUrl = `https://sunriseadultcare.vercel.app${canonicalPath}`;
 const currentPath = Astro.url.pathname;
 
 const jsonLd = {
@@ -32,9 +32,9 @@ const jsonLd = {
   "name": settings.name,
   "legalName": "Sunrise Adult Family Home LLC",
   "description": description,
-  "url": "https://www.sunriseafh.com",
-  "logo": "https://www.sunriseafh.com/logo.png",
-  "image": "https://www.sunriseafh.com/images/outside.jpg",
+  "url": "https://sunriseadultcare.vercel.app",
+  "logo": "https://sunriseadultcare.vercel.app/logo.png",
+  "image": "https://sunriseadultcare.vercel.app/images/outside.jpg",
   "telephone": settings.phoneTel,
   "email": settings.email,
   "address": {
@@ -102,14 +102,14 @@ const jsonLd = {
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
   <meta property="og:url" content={canonicalUrl}>
-  <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `https://www.sunriseafh.com${ogImage}`}>
+  <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `https://sunriseadultcare.vercel.app${ogImage}`}>
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `https://www.sunriseafh.com${ogImage}`}>
+  <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `https://sunriseadultcare.vercel.app${ogImage}`}>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
