@@ -6,4 +6,7 @@ export default defineCliConfig({
     dataset: 'production',
   },
   studioHost: 'sunrise-afh',
+  deployment: {
+    appId: 'kesstkjn085yu87bhkvglowv',
+  },
 });
