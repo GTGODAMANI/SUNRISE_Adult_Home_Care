@@ -8,37 +8,78 @@ const __dirname = path.dirname(__filename);
 
 const client = getCliClient();
 
-async function uploadImage(relPath, filename) {
+async function uploadImage(relPath, filename, retries = 5) {
   const fullPath = path.resolve(__dirname, relPath);
   if (!fs.existsSync(fullPath)) {
     console.warn(`File not found: ${fullPath}`);
     return null;
   }
-  const stream = fs.createReadStream(fullPath);
-  console.log(`Uploading asset: ${filename}...`);
-  const asset = await client.assets.upload('image', stream, { filename });
-  return {
-    _type: 'image',
-    asset: {
-      _type: 'reference',
-      _ref: asset._id,
-    },
-  };
+
+  // Check if asset was already uploaded
+  try {
+    const existing = await client.fetch(
+      `*[_type == "sanity.imageAsset" && originalFilename == $filename][0]._id`,
+      { filename }
+    );
+    if (existing) {
+      console.log(`✓ Asset already exists in Sanity: ${filename} (${existing})`);
+      return {
+        _type: 'image',
+        asset: {
+          _type: 'reference',
+          _ref: existing,
+        },
+      };
+    }
+  } catch (e) {
+    // continue
+  }
+
+  const buffer = fs.readFileSync(fullPath);
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      console.log(`Uploading asset: ${filename} (${(buffer.length / 1024).toFixed(0)} KB, attempt ${attempt})...`);
+      const asset = await client.assets.upload('image', buffer, { filename });
+      console.log(`✓ Uploaded ${filename} (${asset._id})`);
+      return {
+        _type: 'image',
+        asset: {
+          _type: 'reference',
+          _ref: asset._id,
+        },
+      };
+    } catch (err) {
+      console.warn(`Upload attempt ${attempt} failed for ${filename}:`, err.message);
+      if (attempt === retries) throw err;
+      await new Promise((r) => setTimeout(r, 2000 * attempt));
+    }
+  }
 }
 
 async function seed() {
-  console.log('Seeding initial website content to Sanity...');
+  console.log('Seeding real facility photos and content to Sanity...');
 
-  // Upload images
-  const heroImg = await uploadImage('../public/images/hero-bg.png', 'hero-bg.png');
-  const bedroomImg = await uploadImage('../public/images/bedroom.png', 'bedroom.png');
-  const livingImg = await uploadImage('../public/images/living-dining.png', 'living-dining.png');
-  const gardenImg = await uploadImage('../public/images/outdoor-garden.png', 'outdoor-garden.png');
-  const careImg = await uploadImage('../public/images/caregiver-resident.png', 'caregiver-resident.png');
-  const familyImg = await uploadImage('../public/images/family-visit.png', 'family-visit.png');
+  // Upload all real photos
+  const outsideImg = await uploadImage('../public/images/outside.jpg', 'outside.jpg');
+  const outsidePhotoImg = await uploadImage('../public/images/outside-photo.jpg', 'outside-photo.jpg');
+  const outside1Img = await uploadImage('../public/images/outside-1.jpg', 'outside-1.jpg');
+  const backyardImg = await uploadImage('../public/images/backyard.jpg', 'backyard.jpg');
+  const bedroomImg = await uploadImage('../public/images/bedroom.jpg', 'bedroom.jpg');
+  const roomImg = await uploadImage('../public/images/room.jpg', 'room.jpg');
+  const closetImg = await uploadImage('../public/images/closet.jpg', 'closet.jpg');
+  const lobbyImg = await uploadImage('../public/images/lobby.jpg', 'lobby.jpg');
+  const spaceImg = await uploadImage('../public/images/space.jpg', 'space.jpg');
+  const wallPicImg = await uploadImage('../public/images/wall-with-pic.jpg', 'wall-with-pic.jpg');
+  const hallwayImg = await uploadImage('../public/images/hall-way.jpg', 'hall-way.jpg');
+  const diningImg = await uploadImage('../public/images/dining.jpg', 'dining.jpg');
+  const kitchenImg = await uploadImage('../public/images/kitchen.jpg', 'kitchen.jpg');
+  const bathroomImg = await uploadImage('../public/images/bathroom.jpg', 'bathroom.jpg');
+  const showerImg = await uploadImage('../public/images/shower.jpg', 'shower.jpg');
+  const shower2Img = await uploadImage('../public/images/shower-2.jpg', 'shower-2.jpg');
+  const shower3Img = await uploadImage('../public/images/shower-3.jpg', 'shower-3.jpg');
 
   // 1. Site Settings
-  console.log('Creating Site Information & Contact...');
+  console.log('Updating Site Information & Contact...');
   await client.createOrReplace({
     _id: 'siteSettings',
     _type: 'siteSettings',
@@ -58,8 +99,8 @@ async function seed() {
     instagramUrl: 'https://www.instagram.com/',
   });
 
-  // 2. Hero Section
-  console.log('Creating Homepage Hero Section...');
+  // 2. Hero Section with Real Exterior
+  console.log('Updating Homepage Hero Section with real home exterior...');
   await client.createOrReplace({
     _id: 'hero',
     _type: 'hero',
@@ -69,7 +110,7 @@ async function seed() {
     titleSuffix: 'Home Care in Washington',
     subtitle:
       'Providing personalized care, comfort, and dignity in a safe and welcoming home environment. Your loved one deserves the very best.',
-    bgImage: heroImg,
+    bgImage: outsideImg,
     stats: [
       { _key: 'stat1', number: '5', label: 'Bedrooms' },
       { _key: 'stat2', number: '24/7', label: 'Care & Supervision' },
@@ -78,8 +119,8 @@ async function seed() {
     ],
   });
 
-  // 3. Rooms & Accommodations
-  console.log('Creating Bedrooms & Accommodations...');
+  // 3. Rooms & Accommodations with Real Photos
+  console.log('Updating Bedrooms & Accommodations with real photos...');
   const rooms = [
     {
       _id: 'room-1',
@@ -111,7 +152,7 @@ async function seed() {
         'Wide doorway access',
         'Warm wooden flooring',
       ],
-      image: bedroomImg,
+      image: roomImg,
     },
     {
       _id: 'room-3',
@@ -143,23 +184,23 @@ async function seed() {
         'Personalized décor welcome',
         'Safety features',
       ],
-      image: bedroomImg,
+      image: roomImg,
     },
     {
       _id: 'room-5',
       _type: 'room',
       order: 5,
-      title: 'Spacious Private Room',
+      title: 'Spacious Private Suite with Walk-In Closet',
       status: 'Inquire',
       description:
-        'Large private bedroom that comfortably accommodates specialized medical equipment or extra seating.',
+        'Large private bedroom that comfortably accommodates personalized furniture and plenty of storage in the generous closet.',
       features: [
-        'Largest floor plan',
+        'Large private closet',
         'Space for favorite recliner',
         'Direct caregiver line',
         'Hardwood-style flooring',
       ],
-      image: bedroomImg,
+      image: closetImg,
     },
   ];
 
@@ -168,7 +209,7 @@ async function seed() {
   }
 
   // 4. Care Services
-  console.log('Creating Care Services...');
+  console.log('Updating Care Services...');
   const services = [
     {
       _id: 'service-personal-care',
@@ -272,62 +313,161 @@ async function seed() {
     await client.createOrReplace(s);
   }
 
-  // 5. Photo Gallery
-  console.log('Creating Photo Gallery...');
+  // 5. Complete Photo Gallery with All 17 Real Photos
+  console.log('Uploading all 17 real photos to Photo Gallery in Sanity...');
   const gallery = [
     {
-      _id: 'gallery-1',
+      _id: 'gallery-outside',
       _type: 'gallery',
       order: 1,
-      title: 'Living & Dining Area',
+      title: 'Sunrise AFH Home Exterior',
       category: 'Living & Dining',
-      caption: 'Comfortable living and dining area for social meals and relaxation.',
-      image: livingImg,
+      caption: 'Our welcoming residential home in a quiet Marysville neighborhood.',
+      image: outsideImg,
     },
     {
-      _id: 'gallery-2',
+      _id: 'gallery-outside-photo',
       _type: 'gallery',
       order: 2,
+      title: 'Front Grounds & Driveway',
+      category: 'Living & Dining',
+      caption: 'Well-maintained entrance with smooth, accessible walkway.',
+      image: outsidePhotoImg,
+    },
+    {
+      _id: 'gallery-outside-1',
+      _type: 'gallery',
+      order: 3,
+      title: 'Neighborhood Setting',
+      category: 'Living & Dining',
+      caption: 'Safe, peaceful Marysville community setting.',
+      image: outside1Img,
+    },
+    {
+      _id: 'gallery-backyard',
+      _type: 'gallery',
+      order: 4,
+      title: 'Private Backyard & Lawn',
+      category: 'Outdoors & Garden',
+      caption: 'Spacious green backyard for fresh air and outdoor relaxation.',
+      image: backyardImg,
+    },
+    {
+      _id: 'gallery-lobby',
+      _type: 'gallery',
+      order: 5,
+      title: 'Comfortable Living Room',
+      category: 'Living & Dining',
+      caption: 'Bright living space with comfortable seating and natural lighting.',
+      image: lobbyImg,
+    },
+    {
+      _id: 'gallery-space',
+      _type: 'gallery',
+      order: 6,
+      title: 'Lounge & Reception Area',
+      category: 'Living & Dining',
+      caption: 'Welcoming reception and conversation area for residents and visiting families.',
+      image: spaceImg,
+    },
+    {
+      _id: 'gallery-wall-pic',
+      _type: 'gallery',
+      order: 7,
+      title: 'Home Décor & Gallery Wall',
+      category: 'Living & Dining',
+      caption: 'Warm, homey touches that make our facility feel like family.',
+      image: wallPicImg,
+    },
+    {
+      _id: 'gallery-hallway',
+      _type: 'gallery',
+      order: 8,
+      title: 'Wide Accessible Hallways',
+      category: 'Living & Dining',
+      caption: 'Wide, well-lit corridors designed for easy walker and wheelchair navigation.',
+      image: hallwayImg,
+    },
+    {
+      _id: 'gallery-dining',
+      _type: 'gallery',
+      order: 9,
+      title: 'Family Dining Area',
+      category: 'Living & Dining',
+      caption: 'Family-style dining table where residents enjoy 3 home-cooked meals daily.',
+      image: diningImg,
+    },
+    {
+      _id: 'gallery-kitchen',
+      _type: 'gallery',
+      order: 10,
+      title: 'Modern Fully Equipped Kitchen',
+      category: 'Living & Dining',
+      caption: 'Clean, modern kitchen where fresh, nutritious meals and snacks are prepared.',
+      image: kitchenImg,
+    },
+    {
+      _id: 'gallery-bedroom',
+      _type: 'gallery',
+      order: 11,
       title: 'Private Bedroom',
       category: 'Bedrooms',
-      caption: 'Private bedroom with warm natural light and cozy bedding.',
+      caption: 'Comfortable private bedroom with warm daylight and peaceful atmosphere.',
       image: bedroomImg,
     },
     {
-      _id: 'gallery-3',
+      _id: 'gallery-room',
       _type: 'gallery',
-      order: 3,
-      title: 'Outdoor Garden & Patio',
-      category: 'Outdoors & Garden',
-      caption: 'Peaceful outdoor garden and patio for fresh air and sunshine.',
-      image: gardenImg,
+      order: 12,
+      title: 'Private Room Interior',
+      category: 'Bedrooms',
+      caption: 'Tranquil bedroom ready for resident personalization and favorite belongings.',
+      image: roomImg,
     },
     {
-      _id: 'gallery-4',
+      _id: 'gallery-closet',
       _type: 'gallery',
-      order: 4,
-      title: 'Personalized Care',
-      category: 'Caregiving',
-      caption: 'Attentive, personalized care delivered with dignity and respect.',
-      image: careImg,
+      order: 13,
+      title: 'Generous Bedroom Closet',
+      category: 'Bedrooms',
+      caption: 'Ample closet space for clothes, wardrobe, and personal belongings.',
+      image: closetImg,
     },
     {
-      _id: 'gallery-5',
+      _id: 'gallery-bathroom',
       _type: 'gallery',
-      order: 5,
-      title: 'Family Visits Welcome',
-      category: 'Community',
-      caption: 'We warmly welcome families to visit and spend quality time.',
-      image: familyImg,
-    },
-    {
-      _id: 'gallery-6',
-      _type: 'gallery',
-      order: 6,
-      title: 'Sunrise Home Exterior',
+      order: 14,
+      title: 'Accessible Bathroom',
       category: 'Living & Dining',
-      caption: 'Our welcoming residential home in a quiet Marysville neighborhood.',
-      image: heroImg,
+      caption: 'Spacious accessible bathroom with safety-first design.',
+      image: bathroomImg,
+    },
+    {
+      _id: 'gallery-shower',
+      _type: 'gallery',
+      order: 15,
+      title: 'Barrier-Free Walk-In Shower',
+      category: 'Caregiving',
+      caption: 'Walk-in shower with safety grab bars and hand-held shower wand.',
+      image: showerImg,
+    },
+    {
+      _id: 'gallery-shower-2',
+      _type: 'gallery',
+      order: 16,
+      title: 'Step-In Safety Shower',
+      category: 'Caregiving',
+      caption: 'Secure bathing facility designed to prevent slips and ensure resident comfort.',
+      image: shower2Img,
+    },
+    {
+      _id: 'gallery-shower-3',
+      _type: 'gallery',
+      order: 17,
+      title: 'Tiled Accessible Shower',
+      category: 'Caregiving',
+      caption: 'Clean, sanitized walk-in shower with safety support.',
+      image: shower3Img,
     },
   ];
 
@@ -335,112 +475,10 @@ async function seed() {
     await client.createOrReplace(g);
   }
 
-  // 6. Testimonials
-  console.log('Creating Testimonials...');
-  const testimonials = [
-    {
-      _id: 'test-1',
-      _type: 'testimonial',
-      order: 1,
-      name: 'Sarah M.',
-      relation: 'Daughter of resident',
-      quote:
-        'Finding Sunrise Adult Family Home was an absolute blessing. The caregivers treat my mother like their own family. She is safe, eating wonderful home-cooked meals, and happier than she has been in years.',
-      rating: 5,
-    },
-    {
-      _id: 'test-2',
-      _type: 'testimonial',
-      order: 2,
-      name: 'David K.',
-      relation: 'Son of resident',
-      quote:
-        'The personalized attention here is unmatched compared to large institutional facilities. I have total peace of mind knowing someone is there for my dad 24 hours a day.',
-      rating: 5,
-    },
-    {
-      _id: 'test-3',
-      _type: 'testimonial',
-      order: 3,
-      name: 'Linda R.',
-      relation: 'Family member',
-      quote:
-        'The home is always clean, warm, and inviting. The communication from the team is proactive and thoughtful. We couldn’t ask for a better home for our loved one.',
-      rating: 5,
-    },
-  ];
-
-  for (const t of testimonials) {
-    await client.createOrReplace(t);
-  }
-
-  // 7. FAQs
-  console.log('Creating FAQs...');
-  const faqs = [
-    {
-      _id: 'faq-1',
-      _type: 'faq',
-      order: 1,
-      question: 'What is an Adult Family Home (AFH)?',
-      answer:
-        'An Adult Family Home is a state-licensed residential home that provides personalized 24/7 care, room, board, and supervision for up to 6 adults. Unlike large institutional assisted living facilities, an AFH offers intimate, high-ratio care in a true home setting.',
-      category: 'General',
-    },
-    {
-      _id: 'faq-2',
-      _type: 'faq',
-      order: 2,
-      question: 'How many residents live in your home?',
-      answer:
-        'Sunrise Adult Family Home is licensed for up to 5 residents. This small home setting ensures an exceptional caregiver-to-resident ratio, personalized routines, and individualized attention.',
-      category: 'General',
-    },
-    {
-      _id: 'faq-3',
-      _type: 'faq',
-      order: 3,
-      question: 'What services are included in the monthly fee?',
-      answer:
-        'Our comprehensive care includes 24/7 awake supervision, 3 home-cooked meals plus snacks, assistance with daily living (bathing, dressing, grooming, mobility), medication management, laundry, housekeeping, and social activities.',
-      category: 'Pricing & Services',
-    },
-    {
-      _id: 'faq-4',
-      _type: 'faq',
-      order: 4,
-      question: 'Do you accept Medicaid or private pay?',
-      answer:
-        'We primarily accept private pay and select long-term care insurance policies. Please contact us directly at (206) 557-2149 to discuss your specific payment options and coverage.',
-      category: 'Payment',
-    },
-    {
-      _id: 'faq-5',
-      _type: 'faq',
-      order: 5,
-      question: 'Can family members visit whenever they want?',
-      answer:
-        'Yes! Family members and loved ones are warmly welcomed to visit. We consider family an essential part of our residents’ wellbeing and happiness.',
-      category: 'Life at Sunrise',
-    },
-    {
-      _id: 'faq-6',
-      _type: 'faq',
-      order: 6,
-      question: 'How do I schedule a tour?',
-      answer:
-        'You can schedule a tour right here on our website via our Schedule a Tour page, or call us directly at (206) 557-2149. We would love to show you around our home!',
-      category: 'Getting Started',
-    },
-  ];
-
-  for (const f of faqs) {
-    await client.createOrReplace(f);
-  }
-
-  console.log('✅ All website content and photos successfully seeded to Sanity!');
+  console.log('✅ All 17 real photos and updated documents successfully uploaded to Sanity!');
 }
 
 seed().catch((err) => {
-  console.error('Seeding failed:', err);
+  console.error('Seeding real photos failed:', err);
   process.exit(1);
 });

@@ -4,6 +4,10 @@ node_modules/
 # Build outputs
 dist/
 .astro/
+studio/.sanity/
+
+# PSD design files
+*.psd
 
 # Environment variables
 .env
