@@ -112,7 +112,7 @@ export async function getRooms(): Promise<RoomItem[]> {
       status: item.status || 'Available',
       description: item.description,
       features: item.features || [],
-      image: item.image ? urlFor(item.image) : '/images/bedroom.png',
+      image: item.image ? urlFor(item.image) : '/images/bedroom.jpg',
     }));
   } catch (err) {
     console.warn('Sanity fetch failed for rooms, using default data:', err);
@@ -128,7 +128,7 @@ export async function getGallery(): Promise<GalleryItem[]> {
     return data.map((item: any) => ({
       title: item.title,
       category: item.category || 'General',
-      image: item.image ? urlFor(item.image) : '/images/hero-bg.png',
+      image: item.image ? urlFor(item.image) : '/images/outside.jpg',
       caption: item.caption || item.title,
     }));
   } catch (err) {

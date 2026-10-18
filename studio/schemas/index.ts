@@ -268,9 +268,15 @@ export const galleryType = defineType({
       title: 'Category',
       type: 'string',
       options: {
-        list: ['Bedrooms', 'Living & Dining', 'Outdoors & Garden', 'Caregiving', 'Community'],
+        list: [
+          'Bedrooms',
+          'Living & Common Areas',
+          'Dining & Kitchen',
+          'Bathrooms & Showers',
+          'Exterior & Grounds',
+        ],
       },
-      initialValue: 'Living & Dining',
+      initialValue: 'Living & Common Areas',
     }),
     defineField({
       name: 'image',
