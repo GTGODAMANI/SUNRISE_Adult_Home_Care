@@ -14,7 +14,7 @@ const settings = await getSiteSettings();
     .page-hero {
       position: relative;
       background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1a4d75 100%);
-      padding: clamp(4rem, 8vw, 6rem) var(--space-4) clamp(3rem, 5vw, 4.5rem);
+      padding: calc(var(--nav-height) + clamp(2rem, 5vw, 4rem)) var(--space-4) clamp(2.5rem, 5vw, 4rem);
       text-align: center;
       overflow: hidden;
     }

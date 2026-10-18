@@ -13,12 +13,8 @@ const { settings } = Astro.props;
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a href="/" class="navbar__logo" style="margin-bottom:1rem;text-decoration:none;">
-          <div class="logo-icon" aria-hidden="true">🌅</div>
-          <div class="logo-text">
-            <span class="logo-main">{settings.shortName}</span>
-            <span class="logo-sub">Adult Family Home LLC</span>
-          </div>
+        <a href="/" class="footer__logo" aria-label={`${settings.name} - Home`}>
+          <img src="/images/logo.png" alt={settings.name} class="footer__logo-img" width="140" height="52" />
         </a>
         <p>Providing compassionate, personalized 24/7 residential care for seniors and adults in a warm, home-like environment in Marysville, Washington.</p>
         <div class="footer__social">

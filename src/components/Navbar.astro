@@ -35,11 +35,7 @@ const cleanCurrentPath = currentPath.replace(/\/index\.html$/, '').replace(/\.ht
 >
   <div class="navbar__inner">
     <a href="/" class="navbar__logo" aria-label={`${settings.name} - Home`}>
-      <div class="logo-icon" aria-hidden="true">🌅</div>
-      <div class="logo-text">
-        <span class="logo-main">{settings.shortName}</span>
-        <span class="logo-sub">Adult Family Home LLC</span>
-      </div>
+      <img src="/images/logo.png" alt={settings.name} class="navbar__logo-img" width="130" height="48" />
     </a>
     <nav class="navbar__nav" aria-label="Site navigation">
       {navLinks.map((link) => {
@@ -51,15 +47,16 @@ const cleanCurrentPath = currentPath.replace(/\/index\.html$/, '').replace(/\.ht
         );
       })}
     </nav>
-    <div class="navbar__cta">
-      <a href={`tel:${settings.phoneTel}`} class="navbar__phone" aria-label={`Call us at ${settings.phone}`}>
-        📞 {settings.phone}
+    <div class="navbar__actions">
+      <a href={`tel:${settings.phoneTel}`} class="navbar__call-btn" aria-label={`Call us at ${settings.phone}`}>
+        <span class="call-icon" aria-hidden="true">📞</span>
+        <span class="call-text">{settings.phone}</span>
       </a>
-      <a href="/schedule-tour" class="btn btn--primary btn--sm">Schedule Tour</a>
+      <a href="/schedule-tour" class="btn btn--primary btn--sm navbar__tour-btn">Schedule Tour</a>
+      <button class="navbar__toggle" id="mobileToggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <button class="navbar__toggle" id="mobileToggle" aria-label="Toggle mobile menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
 
@@ -73,5 +70,8 @@ const cleanCurrentPath = currentPath.replace(/\/index\.html$/, '').replace(/\.ht
       </a>
     );
   })}
-  <a href={`tel:${settings.phoneTel}`} class="btn btn--primary">📞 Call {settings.phone}</a>
+  <div class="mobile-nav__actions">
+    <a href={`tel:${settings.phoneTel}`} class="btn btn--primary">📞 Call {settings.phone}</a>
+    <a href="/schedule-tour" class="btn btn--navy" style="margin-top:0.75rem;">🏠 Schedule a Tour</a>
+  </div>
 </div>
