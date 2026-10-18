@@ -28,10 +28,13 @@ const currentPath = Astro.url.pathname;
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ResidentialFacility",
+  "@type": ["ResidentialFacility", "LocalBusiness", "MedicalBusiness"],
   "name": settings.name,
+  "legalName": "Sunrise Adult Family Home LLC",
   "description": description,
   "url": "https://www.sunriseafh.com",
+  "logo": "https://www.sunriseafh.com/logo.png",
+  "image": "https://www.sunriseafh.com/images/outside.jpg",
   "telephone": settings.phoneTel,
   "email": settings.email,
   "address": {
@@ -42,12 +45,34 @@ const jsonLd = {
     "postalCode": settings.zip,
     "addressCountry": "US"
   },
-  "openingHours": "Mo-Su 00:00-24:00",
-  "priceRange": "$$",
-  "areaServed": {
-    "@type": "State",
-    "name": "Washington"
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 48.0518,
+    "longitude": -122.1771
   },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    }
+  ],
+  "priceRange": "$$",
+  "areaServed": [
+    { "@type": "City", "name": "Marysville" },
+    { "@type": "City", "name": "Everett" },
+    { "@type": "City", "name": "Lake Stevens" },
+    { "@type": "City", "name": "Arlington" },
+    { "@type": "AdministrativeArea", "name": "Snohomish County" },
+    { "@type": "State", "name": "Washington" }
+  ],
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "24/7 Dedicated Care", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Private Bedrooms", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Home-Cooked Nutrition", "value": true }
+  ],
   "sameAs": [
     settings.facebookUrl || "https://www.facebook.com/",
     settings.instagramUrl || "https://www.instagram.com/"
@@ -65,6 +90,12 @@ const jsonLd = {
   <meta name="keywords" content="Adult Family Home Washington, Senior Care Home Marysville WA, Residential Care Washington, 24 Hour Senior Care, Memory Care Home Washington, Adult Family Home Near Me, Assisted Living Alternative Washington">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href={canonicalUrl}>
+
+  <!-- Geographic Local SEO -->
+  <meta name="geo.region" content="US-WA">
+  <meta name="geo.placename" content="Marysville, Washington">
+  <meta name="geo.position" content="48.0518;-122.1771">
+  <meta name="ICBM" content="48.0518, -122.1771">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
